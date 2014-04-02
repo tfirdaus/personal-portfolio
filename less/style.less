@@ -1,0 +1,152 @@
+//== var
+@import 'remixins.less';
+
+@color-body   : #fafafa;
+@color-header : #303746;
+@color-logo   : #e0e0e0;
+@color-title  : #6b919f;
+@color-text   : #353537;
+@font-body: 'Open Sans', Arial, sans-serif;
+@font-logo: 'Cantata One', Georgia, Times, serif;
+
+html {
+	font-size: 62.5%;
+}
+body {
+	.font-size(16px);
+	text-rendering: optimizeLegibility;
+	background-color: @color-body;
+	color: @color-text;
+	font-family: @font-body;
+}
+figure { //overwrite Normalize.css default style
+	margin: 0;
+}
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+.portfolio-header {
+	.padding(50px, 0);
+	background-color: @color-header;
+	text-align: center;
+	.profile-avatar {
+		img {
+			.width(80px);
+			.max-height(80px);
+			border-radius: 50%;
+		}
+	}
+	.profile-name,
+	.profile-location {
+		color: @color-logo;
+	}
+	.profile-name {
+		.font-size(24px);
+		.margin-bottom(10px);
+		font-family: @font-logo;
+		font-weight: 400;
+	}
+	.profile-location {
+		.font-size(14px);
+		color: lighten(@color-header, 30%);
+	}
+}
+.portfolio-area {
+	.margin(50px, auto);
+	.max-width(960px);
+	width: 100%;
+	.portfolio-list {
+		padding-left: 0;
+	}
+	.portfolio-item {
+		.margin-bottom(30px);
+		float: left;
+		list-style-type: none;
+		width: 25%;
+	}
+	.portfolio-content {
+  		text-align: center;
+	}
+	.portfolio-image {
+		border: 8px solid #fff;
+	}
+	.portfolio-link {
+		cursor: -webkit-zoom-in;
+		cursor: -moz-zoom-in;
+		cursor: -zoom-in;
+		width: 100%;
+	}
+	.portfolio-title {
+		.font-size(13px);
+		color: darken(@color-title, 10%);
+		vertical-align: middle;
+		width: 100%;
+	}
+}
+.portfolio-footer {
+	.footer-content {
+		.margin(30px, auto);
+		.max-width(960px);
+		text-align: center;
+		width: 100%;
+	}
+	.power-by {
+		.font-size(12px);
+		color: darken(@color-body, 30%);
+		text-transform: uppercase;
+	}
+	.dribbble-logo {
+		.width(36px);
+		.height(36px);
+		margin: 0 auto;
+		text-indent: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		background-image: url('../img/dribbble-logo.svg');
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		display: inline-block;
+	}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+	.portfolio-area,
+	.portfolio-footer .footer-content {
+		.max-width(690px);
+	}
+	.portfolio-area {
+		.portfolio-item {
+			width: 33.33333%;
+		}
+	}
+}
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+	.portfolio-area,
+	.portfolio-footer .footer-content {
+		.max-width(480px);
+	}
+	.portfolio-area {
+		.portfolio-item {
+			width: 50%;
+		}
+	}
+}
+@media only screen and (max-width: 479px) {
+	.portfolio-area,
+	.portfolio-footer .footer-content {
+		.max-width(240px);
+	}
+	.portfolio-area {
+		.portfolio-item {
+			width: 100%;
+		}
+	}
+}

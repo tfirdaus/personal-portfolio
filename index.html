@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Dribbble Portfolio</title>
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.9.9/magnific-popup.css">
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One|Open+Sans:400,600' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/style.css">
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.9.9/jquery.magnific-popup.min.js"></script>
+
+</head>
+<body>
+	<div id="page" class="page-wrapper">
+		<header id="header" class="portfolio-header clearfix">
+		<script id="profile-template" type="text/x-handlebars-template">
+			<figure class="profile-avatar"><img src="{{avatar_url}}" alt=""></figure>
+			<h1 class="profile-name">{{name}}</h1>
+			<div class="profile-location">{{location}}</div>
+		</script>
+		</header>
+		<div id="content" class="portfolio-area clearfix">
+			<script id="portfolio-template" type="text/x-handlebars-template">
+				<ul class="portfolio-list">
+					{{#each shots}}
+					<li class="portfolio-item">
+						<div class="portfolio-content">
+							<a class="portfolio-link" href="{{image_url}}" title="{{title}}">
+								<img class="portfolio-image" src="{{image_teaser_url}}" alt="">
+							</a>
+							<h2 class="portfolio-title">{{title}}</h2>
+						</div>
+					</li>
+					{{/each}}
+				</ul>
+			</script>
+		</div>
+		<footer id="colophon" class="portfolio-footer clearfix">
+			<div class="footer-content">
+				<div id="power" class="power-by">
+					<p>Powered by</p>
+					<p><a class="dribbble-logo" href="http://dribbble.com/" title="Dribbble">Dribbble</a></p>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<script>
+		$(document).ready(function() {
+			var playerID = 'creativemints';
+			var dribbblePlayerAPI = 'http://api.dribbble.com/players/' + playerID + '?callback=?';
+			$.getJSON(dribbblePlayerAPI, function(player){
+				var getTemplate = $('#profile-template').html();
+				var template    = Handlebars.compile(getTemplate);
+				var result      = template(player);
+			    $('#header').html(result);
+			    //console.log(player);
+			});
+			var dribbbleShotsAPI = 'http://api.dribbble.com/players/' + playerID + '/shots?per_page=12&callback=?';
+			$.getJSON(dribbbleShotsAPI, function(shots) {
+				var getTemplate = $('#portfolio-template').html();
+				var template    = Handlebars.compile(getTemplate);
+				var result      = template(shots);
+			    $('#content').html(result);
+				//console.log(shots);
+				$('.portfolio-link').magnificPopup({
+					type:'image',
+					zoom: {
+						enabled: true,
+						duration: 350 // don't foget to change the duration also in CSS
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>	
