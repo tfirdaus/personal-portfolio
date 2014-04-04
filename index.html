@@ -93,7 +93,7 @@
 					sessionStorage.setItem('behanceUser', data);
 					setUserTemplate();
 				}); 
-				console.log('User API Call');
+				//console.log('User API Call');
 			};
 		})();
 
@@ -116,13 +116,11 @@
 					sessionStorage.setItem('behanceProject', data);
 					setPortfolioTemplate();
 				});
-				console.log('Project API Call');
+				//console.log('Project API Call');
 			};
 		})();
 
 		$('#portfolio').on('click', '.portfolio-link', function() {
-			console.log('clicked');
-
 			var $this =	$(this),
 				projectID = $this.data('project-id'),
 				beProjectContentAPI = 'http://www.behance.net/v2/projects/'+ projectID +'?callback=?&api_key=' + apiKey,
@@ -156,7 +154,7 @@
 					var data = JSON.stringify(src);
 					localStorage.setItem(keyName, data);
 				});
-				console.log('Project Content API Call');
+				//console.log('Project Content API Call');
 			};
 		});
 	});
