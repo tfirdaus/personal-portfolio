@@ -12,8 +12,8 @@
 *, 
 *:before,
 *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box; 
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box; 
   box-sizing: border-box;
  }
 html {
@@ -21,11 +21,11 @@ html {
 }
 body {
 	.font-size(16px);
-	text-rendering: optimizeLegibility;
 	background-color: @color-body;
 	color: @color-text;
 	font-family: @font-body;
 	font-weight: 300;
+	text-rendering: optimizeLegibility;
 }
 figure { //overwrite Normalize.css default style
 	margin: 0;
@@ -115,15 +115,15 @@ figure { //overwrite Normalize.css default style
 		cursor: -webkit-zoom-in;
 		cursor: -moz-zoom-in;
 		cursor: -zoom-in;
-		width: 100%;
 		display: inline-block;
+		width: 100%;
 	}
 	.portfolio-title {
 		.font-size(14px);
 		color: darken(@color-title, 10%);
+		text-transform: capitalize;
 		vertical-align: middle;
 		width: 100%;
-		text-transform: capitalize;
 	}
 	.portfolio-fields {
 		.font-size(12px);
@@ -154,17 +154,28 @@ figure { //overwrite Normalize.css default style
 		color: darken(@color-body, 30%);
 		text-transform: uppercase;
 	}
-	.dribbble-logo {
+	.power-logo {
 		.width(36px);
 		.height(36px);
+		color: #1769ff;
+		display: inline-block;
 		margin: 0 auto;
+		overflow: hidden;
+		position: relative;
+		text-decoration: none;
 		text-indent: 100%;
 		white-space: nowrap;
-		overflow: hidden;
-		background-image: url('../img/dribbble-logo.svg');
-		background-repeat: no-repeat;
-		background-size: 100% 100%;
-		display: inline-block;
+		&:before {
+			.line-height(38px);
+			.font-size(36px);
+			display: inline-block;
+			height: 100%;
+			left: 0;
+			position: absolute;
+			text-indent: 0;
+			top: 0;
+			width: 100%;
+		}
 	}
 }
 
@@ -186,18 +197,8 @@ figure { //overwrite Normalize.css default style
 	}
 	.portfolio-area {
 		.portfolio-item {
+			height: auto;
 			width: 100%;
 		}
 	}
 }
-// @media only screen and (max-width: 479px) {
-// 	.portfolio-area,
-// 	.portfolio-footer .footer-content {
-// 		.max-width(360px);
-// 	}
-// 	.portfolio-area {
-// 		.portfolio-item {
-// 			width: 100%;
-// 		}
-// 	}
-// }
