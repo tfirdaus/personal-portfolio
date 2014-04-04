@@ -9,6 +9,13 @@
 @font-body: 'Open Sans', Arial, sans-serif;
 @font-logo: 'Cantata One', Georgia, Times, serif;
 
+*, 
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+ }
 html {
 	font-size: 62.5%;
 }
@@ -18,6 +25,7 @@ body {
 	background-color: @color-body;
 	color: @color-text;
 	font-family: @font-body;
+	font-weight: 300;
 }
 figure { //overwrite Normalize.css default style
 	margin: 0;
@@ -45,7 +53,7 @@ figure { //overwrite Normalize.css default style
 		}
 	}
 	.profile-name,
-	.profile-location {
+	.profile-fields {
 		color: @color-logo;
 	}
 	.profile-name {
@@ -54,9 +62,31 @@ figure { //overwrite Normalize.css default style
 		font-family: @font-logo;
 		font-weight: 400;
 	}
+	.profile-fields {
+		.max-width(320px);
+		.font-size(14px);
+		color: lighten(@color-header, 50%);
+		margin-left: auto;
+		margin-right: auto;
+		.field-list {
+			padding: 0;
+		}
+		.field-item {
+			display: inline-block;
+			&:after {
+				content: ' ,';
+			}
+			&:last-child:after {
+				content: '';
+			}
+		}
+	}
 	.profile-location {
 		.font-size(14px);
 		color: lighten(@color-header, 30%);
+		&:before {
+			.margin-right(5px);
+		}
 	}
 }
 .portfolio-area {
@@ -68,27 +98,48 @@ figure { //overwrite Normalize.css default style
 	}
 	.portfolio-item {
 		.margin-bottom(30px);
+		.height(320px);
+		.padding(0, 15px);
 		float: left;
 		list-style-type: none;
-		width: 25%;
+		width: 33.33333%;
 	}
 	.portfolio-content {
   		text-align: center;
 	}
 	.portfolio-image {
 		border: 8px solid #fff;
+		max-width: 100%;
 	}
 	.portfolio-link {
 		cursor: -webkit-zoom-in;
 		cursor: -moz-zoom-in;
 		cursor: -zoom-in;
 		width: 100%;
+		display: inline-block;
 	}
 	.portfolio-title {
-		.font-size(13px);
+		.font-size(14px);
 		color: darken(@color-title, 10%);
 		vertical-align: middle;
 		width: 100%;
+		text-transform: capitalize;
+	}
+	.portfolio-fields {
+		.font-size(12px);
+		color: darken(@color-body, 30%);
+		.field-list {
+			padding: 0;
+		}
+		.field-item {
+			display: inline-block;
+			&:after {
+				content: ' ,';
+			}
+			&:last-child:after {
+				content: '';
+			}
+		}
 	}
 }
 .portfolio-footer {
@@ -124,25 +175,14 @@ figure { //overwrite Normalize.css default style
 	}
 	.portfolio-area {
 		.portfolio-item {
-			width: 33.33333%;
-		}
-	}
-}
-@media only screen and (min-width: 480px) and (max-width: 767px) {
-	.portfolio-area,
-	.portfolio-footer .footer-content {
-		.max-width(480px);
-	}
-	.portfolio-area {
-		.portfolio-item {
 			width: 50%;
 		}
 	}
 }
-@media only screen and (max-width: 479px) {
+@media only screen and (max-width: 767px) {
 	.portfolio-area,
 	.portfolio-footer .footer-content {
-		.max-width(240px);
+		.max-width(480px);
 	}
 	.portfolio-area {
 		.portfolio-item {
@@ -150,3 +190,14 @@ figure { //overwrite Normalize.css default style
 		}
 	}
 }
+// @media only screen and (max-width: 479px) {
+// 	.portfolio-area,
+// 	.portfolio-footer .footer-content {
+// 		.max-width(360px);
+// 	}
+// 	.portfolio-area {
+// 		.portfolio-item {
+// 			width: 100%;
+// 		}
+// 	}
+// }
