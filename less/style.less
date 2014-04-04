@@ -371,8 +371,9 @@ figure {
 }
 
 /*media queries*/
-@media only screen and (min-width: 768px) and (max-width: 959px) {
-    .portfolio-area, .portfolio-footer .footer-content {
+@media only screen (min-width: 768px) and (max-width: 959px) {
+    .portfolio-area, 
+    .portfolio-footer .footer-content {
         .max-width(690px);
     }
     .portfolio-area {
@@ -382,7 +383,9 @@ figure {
     }
 }
 @media only screen and (max-width: 767px) {
-    .portfolio-area, .portfolio-footer .footer-content {
+    .portfolio-area, 
+    .portfolio-footer .footer-content {
+    	width: 100%;
         .max-width(480px);
     }
     .portfolio-area {
