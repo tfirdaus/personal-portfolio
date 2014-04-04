@@ -101,8 +101,10 @@ figure {
   color: #717f9e;
 }
 .portfolio-header .profile-location:before {
-  margin-right: 5px;
-  margin-right: 0.5rem;
+  margin-right: 10px;
+  margin-right: 1rem;
+  font-size: 18px;
+  font-size: 1.8rem;
 }
 .portfolio-area {
   margin: 50px auto;
