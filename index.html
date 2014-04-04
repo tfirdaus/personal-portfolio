@@ -6,75 +6,161 @@
 	
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.9.9/magnific-popup.css">
-	<link href='http://fonts.googleapis.com/css?family=Cantata+One|Open+Sans:400,600' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One|Open+Sans:300,600' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/style.css">
 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.9.9/jquery.magnific-popup.min.js"></script>
-
 </head>
 <body>
 	<div id="page" class="page-wrapper">
 		<header id="header" class="portfolio-header clearfix">
 		<script id="profile-template" type="text/x-handlebars-template">
-			<figure class="profile-avatar"><img src="{{avatar_url}}" alt=""></figure>
-			<h1 class="profile-name">{{name}}</h1>
-			<div class="profile-location">{{location}}</div>
+
+			<figure class="profile-avatar"><img src="{{user.images.[138]}}" alt=""></figure>
+			<h1 class="profile-name">{{user.display_name}}</h1>
+			<div class="profile-fields">
+				<ul class="field-list">
+					{{#each user.fields}}
+						<li class="field-item">{{this}}</li>
+					{{/each}}
+				</ul>
+			</div>
+			<div class="profile-location fi-marker">{{user.city}}, {{user.country}}</div>
 		</script>
 		</header>
-		<div id="content" class="portfolio-area clearfix">
-			<script id="portfolio-template" type="text/x-handlebars-template">
+		<div id="content" class="content-area clearfix">
+			<div id="portfolio" class="portfolio-area clearfix">		
+				<script id="portfolio-template" type="text/x-handlebars-template">
 				<ul class="portfolio-list">
-					{{#each shots}}
+					{{#each projects}}
 					<li class="portfolio-item">
 						<div class="portfolio-content">
-							<a class="portfolio-link" href="{{image_url}}" title="{{title}}">
-								<img class="portfolio-image" src="{{image_teaser_url}}" alt="">
+							<a class="portfolio-link" href="#" title="{{this.name}}" data-project-id="{{this.id}}">
+								<img class="portfolio-image" src="{{this.covers.[404]}}" alt="">
 							</a>
-							<h2 class="portfolio-title">{{title}}</h2>
+							<h2 class="portfolio-title">{{this.name}}</h2>
+							<div class="portfolio-fields">
+								<ul class="field-list">
+								{{#each this.fields}}
+									<li class="field-item">{{this}}</li>
+								{{/each}}
+								</ul>
+							</div>
 						</div>
 					</li>
 					{{/each}}
 				</ul>
-			</script>
+				</script>
+			</div>
 		</div>
-		<footer id="colophon" class="portfolio-footer clearfix">
+		<footer id="footer" class="portfolio-footer clearfix">
 			<div class="footer-content">
 				<div id="power" class="power-by">
 					<p>Powered by</p>
-					<p><a class="dribbble-logo" href="http://dribbble.com/" title="Dribbble">Dribbble</a></p>
+					<p><a class="power-logo fi-social-behance" href="http://www.behance.net/" title="Behance" target="_blank">Behance</a></p>
 				</div>
 			</div>
 		</footer>
 	</div>
+
 	<script>
-		$(document).ready(function() {
-			var playerID = 'creativemints';
-			var dribbblePlayerAPI = 'http://api.dribbble.com/players/' + playerID + '?callback=?';
-			$.getJSON(dribbblePlayerAPI, function(player){
-				var getTemplate = $('#profile-template').html();
-				var template    = Handlebars.compile(getTemplate);
-				var result      = template(player);
+	$(document).ready(function() {
+
+		var apiKey  = 'ZLBxK9rEfHwJf9K0rmseNr2fS2gS2HJW';
+		var userID  = 'danmora';
+		var perPage = 12;
+
+		(function() {
+			var beUserAPI = 'http://www.behance.net/v2/users/'+ userID +'?callback=?&api_key='+ apiKey;
+
+			function setUserTemplate() {
+				var userData    = JSON.parse(sessionStorage.getItem('behanceUser')),
+					getTemplate = $('#profile-template').html(),
+					template    = Handlebars.compile(getTemplate),
+					result      = template(userData);
 			    $('#header').html(result);
-			    //console.log(player);
-			});
-			var dribbbleShotsAPI = 'http://api.dribbble.com/players/' + playerID + '/shots?per_page=12&callback=?';
-			$.getJSON(dribbbleShotsAPI, function(shots) {
-				var getTemplate = $('#portfolio-template').html();
-				var template    = Handlebars.compile(getTemplate);
-				var result      = template(shots);
-			    $('#content').html(result);
-				//console.log(shots);
-				$('.portfolio-link').magnificPopup({
-					type:'image',
-					zoom: {
-						enabled: true,
-						duration: 350 // don't foget to change the duration also in CSS
-					}
+			};
+
+			if(sessionStorage.getItem('behanceUser')) {
+				setUserTemplate();
+			} else {
+				$.getJSON(beUserAPI, function(user) {
+					var data = JSON.stringify(user);
+					sessionStorage.setItem('behanceUser', data);
+					setUserTemplate();
+				}); 
+				console.log('User API Call');
+			};
+		})();
+
+		(function() {
+			var beProjectAPI = 'http://www.behance.net/v2/users/'+ userID +'/projects?callback=?&api_key=' + apiKey + '&per_page=' + perPage;
+
+			function setPortfolioTemplate() {
+				var projectData = JSON.parse(sessionStorage.getItem('behanceProject')),
+					getTemplate = $('#portfolio-template').html(),
+					template    = Handlebars.compile(getTemplate),
+					result      = template(projectData);
+				$('#portfolio').html(result);
+			};
+
+			if(sessionStorage.getItem('behanceProject')) {
+				setPortfolioTemplate();
+			} else {
+				$.getJSON(beProjectAPI, function(project) {
+					var data = JSON.stringify(project);
+					sessionStorage.setItem('behanceProject', data);
+					setPortfolioTemplate();
 				});
-			});
+				console.log('Project API Call');
+			};
+		})();
+
+		//
+		$('.portfolio-link').on('click', function(e) {
+			e.preventDefault();
+
+			var $this =	$(this),
+				projectID = $this.data('project-id'),
+				beProjectContentAPI = 'http://www.behance.net/v2/projects/'+ projectID +'?callback=?&api_key=' + apiKey,
+				keyName = 'behanceProjectImages-' + projectID;
+			
+			function showGallery(dataSource) {	
+				$this.magnificPopup({
+					items: dataSource,
+					gallery: {
+						enabled: true
+					},
+					type: 'image',
+					mainClass: 'animated',
+					removalDelay: 350
+				}).magnificPopup('open');
+			};
+
+			if(localStorage.getItem(keyName)) {
+				var srcItems = JSON.parse(window.localStorage.getItem(keyName));
+				showGallery(srcItems);  
+			} else {
+				$.getJSON(beProjectContentAPI, function(projectContent) {
+
+					var src = [];
+					$.each(projectContent.project.modules, function(index, mod) {
+						if(mod.src != undefined) {
+							src.push({ src: mod.src });	
+						}
+					});
+					showGallery(src);
+
+					var data = JSON.stringify(src);
+					window.localStorage.setItem(keyName, data);
+				});
+				console.log('Project Content API Call');
+			};
 		});
+	});
 	</script>
 </body>
 </html>	

@@ -1,34 +1,25 @@
-/*
-.rem-mixins-test-class {
-    .font-size(10px);
-    .line-height(20px);
-    .margin(10px);
-    .margin(3em);
-    .margin(10px, 20px);
-    .margin(10px, 20%);
-    .margin(0px , 20px);
-    .margin-top(2%);
-    .margin-top(2px);
-    .padding(10px);
-    .padding(3em);
-    .padding(10px, 20px);
-    .padding(10px, 20%);
-    .padding(3em, 20px)
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
-*/
 html {
   font-size: 62.5%;
 }
 body {
   font-size: 16px;
   font-size: 1.6rem;
-  text-rendering: optimizeLegibility;
   background-color: #fafafa;
   color: #353537;
   font-family: 'Open Sans', Arial, sans-serif;
+  font-weight: 300;
+  text-rendering: optimizeLegibility;
 }
 figure {
   margin: 0;
+  /*overwrite Normalize.css default style*/
 }
 .clearfix:before,
 .clearfix:after {
@@ -55,7 +46,7 @@ figure {
   border-radius: 50%;
 }
 .portfolio-header .profile-name,
-.portfolio-header .profile-location {
+.portfolio-header .profile-fields {
   color: #e0e0e0;
 }
 .portfolio-header .profile-name {
@@ -66,10 +57,37 @@ figure {
   font-family: 'Cantata One', Georgia, Times, serif;
   font-weight: 400;
 }
+.portfolio-header .profile-fields {
+  max-width: 320px;
+  max-width: 32rem;
+  font-size: 14px;
+  font-size: 1.4rem;
+  color: #aeb6c7;
+  margin-left: auto;
+  margin-right: auto;
+}
+.portfolio-header .profile-fields .field-list {
+  padding: 0;
+}
+.portfolio-header .profile-fields .field-item {
+  display: inline-block;
+}
+.portfolio-header .profile-fields .field-item:after {
+  content: ' ,';
+}
+.portfolio-header .profile-fields .field-item:last-child:after {
+  content: '';
+}
 .portfolio-header .profile-location {
   font-size: 14px;
   font-size: 1.4rem;
   color: #717f9e;
+}
+.portfolio-header .profile-location:before {
+  margin-right: 10px;
+  margin-right: 1rem;
+  font-size: 18px;
+  font-size: 1.8rem;
 }
 .portfolio-area {
   margin: 50px auto;
@@ -84,28 +102,52 @@ figure {
 .portfolio-area .portfolio-item {
   margin-bottom: 30px;
   margin-bottom: 3rem;
+  height: 320px;
+  height: 32rem;
+  padding: 0 15px;
+  padding: 0 1.5rem;
   float: left;
   list-style-type: none;
-  width: 25%;
+  width: 33.33333%;
 }
 .portfolio-area .portfolio-content {
   text-align: center;
 }
 .portfolio-area .portfolio-image {
   border: 8px solid #fff;
+  max-width: 100%;
 }
 .portfolio-area .portfolio-link {
   cursor: -webkit-zoom-in;
   cursor: -moz-zoom-in;
   cursor: -zoom-in;
+  display: inline-block;
   width: 100%;
 }
 .portfolio-area .portfolio-title {
-  font-size: 13px;
-  font-size: 1.3rem;
+  font-size: 14px;
+  font-size: 1.4rem;
   color: #557682;
+  text-transform: capitalize;
   vertical-align: middle;
   width: 100%;
+}
+.portfolio-area .portfolio-fields {
+  font-size: 12px;
+  font-size: 1.2rem;
+  color: #aeaeae;
+}
+.portfolio-area .portfolio-fields .field-list {
+  padding: 0;
+}
+.portfolio-area .portfolio-fields .field-item {
+  display: inline-block;
+}
+.portfolio-area .portfolio-fields .field-item:after {
+  content: ' ,';
+}
+.portfolio-area .portfolio-fields .field-item:last-child:after {
+  content: '';
 }
 .portfolio-footer .footer-content {
   margin: 30px auto;
@@ -121,20 +163,209 @@ figure {
   color: #aeaeae;
   text-transform: uppercase;
 }
-.portfolio-footer .dribbble-logo {
+.portfolio-footer .power-logo {
   width: 36px;
   width: 3.6rem;
   height: 36px;
   height: 3.6rem;
+  color: #1769ff;
+  display: inline-block;
   margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
   text-indent: 100%;
   white-space: nowrap;
-  overflow: hidden;
-  background-image: url('../img/dribbble-logo.svg');
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  display: inline-block;
 }
+.portfolio-footer .power-logo:before {
+  line-height: 38px;
+  line-height: 3.8rem;
+  font-size: 36px;
+  font-size: 3.6rem;
+  display: inline-block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  text-indent: 0;
+  top: 0;
+  width: 100%;
+}
+/*Animation*/
+@-webkit-keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(20px);
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-20px);
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-20px);
+    -ms-transform: translateX(-20px);
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes fadeOutLeft {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(-20px);
+    transform: translateX(-20px);
+  }
+}
+@keyframes fadeOutLeft {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(-20px);
+    -ms-transform: translateX(-20px);
+    transform: translateX(-20px);
+  }
+}
+@-webkit-keyframes fadeOutRight {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(20px);
+    transform: translateX(20px);
+  }
+}
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-20px);
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+@-webkit-keyframes fadeOutDown {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+}
+@keyframes fadeOutDown {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+}
+.mfp-bg.animated {
+  opacity: 0;
+  -webkit-transition: all 500ms ease-out;
+  -moz-transition: all 500ms ease-out;
+  transition: all 500ms ease-out;
+}
+.mfp-wrap.animated .mfp-arrow,
+.mfp-wrap.animated .mfp-content {
+  -webkit-animation-duration: 350ms;
+  animation-duration: 350ms;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+/*bg animation*/
+.mfp-bg.mfp-ready.animated {
+  opacity: 0.8;
+}
+.mfp-bg.mfp-removing.animated {
+  opacity: 0;
+}
+/*arrow animation*/
+.mfp-wrap.animated .mfp-arrow-left {
+  -webkit-animation-name: fadeInRight;
+  animation-name: fadeInRight;
+}
+.mfp-wrap.mfp-removing.animated .mfp-arrow-left {
+  -webkit-animation-name: fadeOutLeft;
+  animation-name: fadeOutLeft;
+}
+.mfp-wrap.animated .mfp-arrow-right {
+  -webkit-animation-name: fadeInLeft;
+  animation-name: fadeInLeft;
+}
+.mfp-wrap.mfp-removing.animated .mfp-arrow-right {
+  -webkit-animation-name: fadeOutRight;
+  animation-name: fadeOutRight;
+}
+/*content animation*/
+.mfp-wrap.animated .mfp-content {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+}
+.mfp-wrap.mfp-removing.animated .mfp-content {
+  -webkit-animation-name: fadeOutDown;
+  animation-name: fadeOutDown;
+}
+/*media queries*/
 @media only screen and (min-width: 768px) and (max-width: 959px) {
   .portfolio-area,
   .portfolio-footer .footer-content {
@@ -142,26 +373,17 @@ figure {
     max-width: 69rem;
   }
   .portfolio-area .portfolio-item {
-    width: 33.33333%;
+    width: 50%;
   }
 }
-@media only screen and (min-width: 480px) and (max-width: 767px) {
+@media only screen and (max-width: 767px) {
   .portfolio-area,
   .portfolio-footer .footer-content {
     max-width: 480px;
     max-width: 48rem;
   }
   .portfolio-area .portfolio-item {
-    width: 50%;
-  }
-}
-@media only screen and (max-width: 479px) {
-  .portfolio-area,
-  .portfolio-footer .footer-content {
-    max-width: 240px;
-    max-width: 24rem;
-  }
-  .portfolio-area .portfolio-item {
+    height: auto;
     width: 100%;
   }
 }
