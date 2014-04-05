@@ -40,7 +40,15 @@
 					<li class="portfolio-item">
 						<div class="portfolio-content">
 							<figure class="portfolio-link" title="{{this.name}}" data-project-id="{{this.id}}">
+								{{#if this.covers.[404]}}
 								<img class="portfolio-image" src="{{this.covers.[404]}}" alt="">
+								{{else}}
+									{{#if this.covers.[230]}}
+									<img class="portfolio-image" src="{{this.covers.[230]}}" alt="">
+									{{else}}
+									<img class="portfolio-image" src="{{this.covers.[202]}}" alt="">
+									{{/if}}
+								{{/if}}
 							</figure>
 							<h2 class="portfolio-title">{{this.name}}</h2>
 							<div class="portfolio-fields">
@@ -71,7 +79,7 @@
 	$(document).ready(function() {
 
 		var apiKey  = 'ZLBxK9rEfHwJf9K0rmseNr2fS2gS2HJW';
-		var userID  = 'danmora';
+		var userID  = 'creativemints';
 		var perPage = 12;
 
 		(function() {
@@ -82,6 +90,7 @@
 					getTemplate = $('#profile-template').html(),
 					template    = Handlebars.compile(getTemplate),
 					result      = template(userData);
+					//console.log(userData);
 			    $('#header').html(result);
 			};
 
@@ -92,6 +101,7 @@
 					var data = JSON.stringify(user);
 					sessionStorage.setItem('behanceUser', data);
 					setUserTemplate();
+
 				}); 
 				//console.log('User API Call');
 			};
@@ -105,6 +115,7 @@
 					getTemplate = $('#portfolio-template').html(),
 					template    = Handlebars.compile(getTemplate),
 					result      = template(projectData);
+					console.log(projectData);
 				$('#portfolio').html(result);
 			};
 
