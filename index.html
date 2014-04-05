@@ -135,9 +135,9 @@
 
 		$('#portfolio').on('click', '.portfolio-link', function() {
 			var $this =	$(this),
-				projectID = $this.data('project-id'),
-				beProjectContentAPI = 'http://www.behance.net/v2/projects/'+ projectID +'?callback=?&api_key=' + apiKey,
-				keyName = 'behanceProjectImages-' + projectID;
+				$projectID = $this.data('project-id'),
+				beProjectContentAPI = 'http://www.behance.net/v2/projects/'+ $projectID +'?callback=?&api_key=' + apiKey,
+				keyName = 'behanceProjectImages-' + $projectID;
 			
 			function showGallery(dataSource) {	
 				$this.magnificPopup({
