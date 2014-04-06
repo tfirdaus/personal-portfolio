@@ -83,7 +83,6 @@
 
 		var apiKey  = 'ZLBxK9rEfHwJf9K0rmseNr2fS2gS2HJW';
 		var userID  = 'creativemints';
-		var perPage = 12;
 
 		(function() {
 			var beUserAPI = 'http://www.behance.net/v2/users/'+ userID +'?callback=?&api_key='+ apiKey;
@@ -111,6 +110,7 @@
 		})();
 
 		(function() {
+			var perPage = 12;
 			var beProjectAPI = 'http://www.behance.net/v2/users/'+ userID +'/projects?callback=?&api_key=' + apiKey + '&per_page=' + perPage;
 
 			function setPortfolioTemplate() {
