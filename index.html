@@ -33,35 +33,35 @@
 	</header>
 	<div id="content" class="content-area clearfix">
 		<div id="portfolio" class="portfolio-area clearfix">		
-			<script id="portfolio-template" type="text/x-handlebars-template">
-			<ul class="portfolio-list clearfix">
-				{{#each projects}}
-				<li class="portfolio-item">
-					<div class="portfolio-content">
-						<figure class="portfolio-link" title="{{this.name}}" data-project-id="{{this.id}}">
-							{{#if this.covers.[404]}}
-							<img class="portfolio-image" src="{{this.covers.[404]}}" alt="">
+		<script id="portfolio-template" type="text/x-handlebars-template">
+		<ul class="portfolio-list clearfix">
+			{{#each projects}}
+			<li class="portfolio-item">
+				<div class="portfolio-content">
+					<figure class="portfolio-cover" title="{{this.name}}" data-project-id="{{this.id}}">
+						{{#if this.covers.[404]}}
+						<img class="portfolio-image" src="{{this.covers.[404]}}" alt="">
+						{{else}}
+							{{#if this.covers.[230]}}
+							<img class="portfolio-image" src="{{this.covers.[230]}}" alt="">
 							{{else}}
-								{{#if this.covers.[230]}}
-								<img class="portfolio-image" src="{{this.covers.[230]}}" alt="">
-								{{else}}
-								<img class="portfolio-image" src="{{this.covers.[202]}}" alt="">
-								{{/if}}
+							<img class="portfolio-image" src="{{this.covers.[202]}}" alt="">
 							{{/if}}
-						</figure>
-						<h2 class="portfolio-title">{{this.name}}</h2>
-						<div class="portfolio-fields">
-							<ul class="field-list">
-							{{#each this.fields}}
-								<li class="field-item">{{this}}</li>
-							{{/each}}
-							</ul>
-						</div>
+						{{/if}}
+					</figure>
+					<h2 class="portfolio-title">{{this.name}}</h2>
+					<div class="portfolio-fields">
+						<ul class="field-list">
+						{{#each this.fields}}
+							<li class="field-item">{{this}}</li>
+						{{/each}}
+						</ul>
 					</div>
-				</li>
-				{{/each}}
-			</ul>
-			</script>
+				</div>
+			</li>
+			{{/each}}
+		</ul>
+		</script>
 		</div>
 	</div>
 	<footer id="footer" class="portfolio-footer clearfix">
@@ -80,60 +80,55 @@
 		var userID  = 'creativemints';
 
 		(function() {
-			var beUserAPI = 'http://www.behance.net/v2/users/'+ userID +'?callback=?&api_key='+ apiKey;
+			var behanceUserAPI = 'http://www.behance.net/v2/users/'+ userID +'?callback=?&api_key='+ apiKey;
 
 			function setUserTemplate() {
-				var userData    = JSON.parse(sessionStorage.getItem('behanceUser')),
+				var userData     = JSON.parse(sessionStorage.getItem('behanceUser')),
 					getTemplate = $('#profile-template').html(),
-					template    = Handlebars.compile(getTemplate),
-					result      = template(userData);
-					console.log(userData);
+					template     = Handlebars.compile(getTemplate),
+					result       = template(userData);
 			    $('#header').html(result);
 			};
 
 			if(sessionStorage.getItem('behanceUser')) {
 				setUserTemplate();
 			} else {
-				$.getJSON(beUserAPI, function(user) {
+				$.getJSON(behanceUserAPI, function(user) {
 					var data = JSON.stringify(user);
 					sessionStorage.setItem('behanceUser', data);
 					setUserTemplate();
-
-				}); 
-				console.log('User API Call');
+				});
 			};
 		})();
 
 		(function() {
 			var perPage = 12;
-			var beProjectAPI = 'http://www.behance.net/v2/users/'+ userID +'/projects?callback=?&api_key=' + apiKey + '&per_page=' + perPage;
+			var behanceProjectAPI = 'http://www.behance.net/v2/users/' + userID + '/projects?callback=?&api_key=' + apiKey + '&per_page=' + perPage;
 
 			function setPortfolioTemplate() {
 				var projectData = JSON.parse(sessionStorage.getItem('behanceProject')),
 					getTemplate = $('#portfolio-template').html(),
 					template    = Handlebars.compile(getTemplate),
 					result      = template(projectData);
-					console.log(projectData);
 				$('#portfolio').html(result);
 			};
 
 			if(sessionStorage.getItem('behanceProject')) {
 				setPortfolioTemplate();
 			} else {
-				$.getJSON(beProjectAPI, function(project) {
+				$.getJSON(behanceProjectAPI, function(project) {
 					var data = JSON.stringify(project);
 					sessionStorage.setItem('behanceProject', data);
 					setPortfolioTemplate();
 				});
-				//console.log('Project API Call');
 			};
 		})();
 
-		$('#portfolio').on('click', '.portfolio-link', function() {
+		$('#portfolio').on('click', '.portfolio-cover', function() {
 			var $this =	$(this),
-				$projectID = $this.data('project-id'),
-				beProjectContentAPI = 'http://www.behance.net/v2/projects/'+ $projectID +'?callback=?&api_key=' + apiKey,
-				keyName = 'behanceProjectImages-' + $projectID;
+				projectID = $this.data('project-id'),
+				beProjectContentAPI = 'http://www.behance.net/v2/projects/'+ projectID +'?callback=?&api_key=' + apiKey,
+				keyName = 'behanceProjectImages-' + projectID;
 			
 			function showGallery(dataSource) {	
 				$this.magnificPopup({
@@ -159,11 +154,9 @@
 						}
 					});
 					showGallery(src);
-
 					var data = JSON.stringify(src);
 					localStorage.setItem(keyName, data);
 				});
-				//console.log('Project Content API Call');
 			};
 		});
 	});
