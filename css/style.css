@@ -225,7 +225,6 @@ lesshat-selector {
 @-o-keyframes fadeOutDown{ 0% { -o-transform: translateY(0); opacity: 1; } 100% { -o-transform: translateY(20px); opacity: 0; }}
 @keyframes fadeOutDown{ 0% {-webkit-transform: translateY(0);-moz-transform: translateY(0);-ms-transform: translateY(0);transform: translateY(0); opacity: 1; } 100% {-webkit-transform: translateY(20px);-moz-transform: translateY(20px);-ms-transform: translateY(20px);transform: translateY(20px); opacity: 0; };
 }
-/*bg animation*/
 .mfp-bg.animated {
   opacity: 0;
   -webkit-transition: opacity 350ms ease-out;
@@ -287,7 +286,6 @@ lesshat-selector {
   -o-animation-name: fadeOutRight;
   animation-name: fadeOutRight;
 }
-/* Media Queries */
 @media only screen and (min-width: 768px) and (max-width: 959px) {
   .portfolio-area .portfolio-item {
     width: 50%;
